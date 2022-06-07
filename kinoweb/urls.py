@@ -1,6 +1,6 @@
 from django.urls import path
-from kinoweb.views import test_response
+from kinoweb.views import allMovies
 
 urlpatterns = [
-    path('test/', test_response)
+    path('wszystkie-filmy/', allMovies)
 ]
