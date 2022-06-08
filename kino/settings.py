@@ -123,3 +123,7 @@ STATICFILES_DIRS = ['myStatic']
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = 'myMedia'
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'allMovies'
+LOGOUT_REDIRECT_URL = 'login'
