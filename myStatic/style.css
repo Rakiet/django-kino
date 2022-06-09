@@ -8,3 +8,8 @@ body {
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+.movie-poster {
+    width: 150px;
+    float: left;
+}
