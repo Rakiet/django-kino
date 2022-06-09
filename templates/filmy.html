@@ -3,25 +3,47 @@
 {% block title %} Dostępne Filmy {% endblock %}
 
 {% block site %}
-{% if user.is_authenticated %}
-        Witaj {{ user.username }}<br>
-        <a href="{% url 'logout' %}">Logout</a>
+<div class="jumbotron">
+    {% if user.is_authenticated %}
+        <h1 class="display-4">Witaj {{ user.username }}</h1>
+
+        <a href="{% url 'logout' %}" class="btn btn-primary">Wyloguj się <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
     {% else %}
-        <a href="{% url 'login' %}">Login</a>
+        <h1 class="display-4">Witaj, nieznajomy</h1>
+        <a href="{% url 'login' %}" class="btn btn-primary">Zaloguj się <i class="fa-solid fa-arrow-right-to-bracket"></i></a>
     {% endif %}
-    <hr>
+</div>
+
 
     <a href="{% url 'newMovie' %}">Nowy Film</a>
-    {% if movies|length == 0 %}
+<!--    {% if movies|length == 0 %}-->
+
+
+
+
         <h2>Brak Filmów</h2>
     {% else %}
         <h2>Ilość filmów: {{ movies|length }}</h2>
-        {% for movie in movies %}
-        <h3>{{ movie }}</h3>
-        <p>{{ movie.description }}</p>
-        <a href="{% url 'editMovie' movie.id %}">Edytuj Film</a>
-        <a href="{% url 'removeMovie' movie.id %}">Usuń Film</a>
 
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+        {% for movie in movies %}
+      <div class="col" style="padding: 0.5rem;">
+            <div class="card" >
+                <div class="card-body">
+                    <h5 class="card-title" style=" justify-content: center; text-align: center;">{{ movie }}</h5>
+                    <hr>
+                    <div class="cut-string">
+                        {{ movie.description }}
+                    </div>
+                    <hr>
+                    <p>Opcje edycji dla administracji: </p>
+                    <a href="{% url 'editMovie' movie.id %}"><i class="fa-solid fa-2x fa-pen-to-square"></i></a>
+                    <a href="{% url 'removeMovie' movie.id %}"><i class="fa-solid fa-2x fa-trash-can"></i></a>
+                </div>
+            </div>
+      </div>
         {% endfor %}
+      </div>
+
     {% endif %}
 {% endblock %}
