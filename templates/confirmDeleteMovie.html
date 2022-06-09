@@ -3,10 +3,18 @@
 {% block title %} Usuń {{ movie.title }} {% endblock %}
 
 {% block site %}
-    <h1>Czy napewno chcesz usunać {{ movie.title }}?</h1>
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit">Potwierdz</button>
-    </form>
-    <a href="{% url 'allMovies' %}">Cofnij</a>
+<div class="card" style="width: 32rem;">
+        <div class="card-body">
+            <h5 class="card-title">Czy napewno chcesz usunać {{ movie.title }}?</h5>
+            <hr>
+            <form method="post">
+                {% csrf_token %}
+                <div class="row justify-content-between" style="padding: 1rem;">
+
+                    <a href="{% url 'allMovies' %}" class="btn btn-primary">Cofnij</a>
+                    <button type="submit" class="btn btn-success">Potwierdz</button>
+                </div>
+            </form>
+        </div>
+</div>
 {% endblock %}

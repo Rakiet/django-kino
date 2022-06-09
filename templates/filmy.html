@@ -16,18 +16,14 @@
 
 
     <a href="{% url 'newMovie' %}">Nowy Film</a>
-<!--    {% if movies|length == 0 %}-->
-
-
-
-
+    {% if movies|length == 0 %}
         <h2>Brak Filmów</h2>
     {% else %}
-        <h2>Ilość filmów: {{ movies|length }}</h2>
+<!--        <h2>Ilość filmów: {{ movies|length }}</h2>-->
 
-  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
         {% for movie in movies %}
-      <div class="col" style="padding: 0.5rem;">
+        <div class="col" style="padding: 0.5rem;">
             <div class="card" >
                 <div class="card-body">
                     <h5 class="card-title" style=" justify-content: center; text-align: center;">{{ movie }}</h5>
@@ -41,9 +37,9 @@
                     <a href="{% url 'removeMovie' movie.id %}"><i class="fa-solid fa-2x fa-trash-can"></i></a>
                 </div>
             </div>
-      </div>
+        </div>
         {% endfor %}
-      </div>
+    </div>
 
     {% endif %}
 {% endblock %}

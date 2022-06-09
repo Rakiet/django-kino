@@ -10,16 +10,18 @@ def allMovies(request):
 
 @login_required
 def newMovie(request):
+    isNewMovie = True
     form = MoveForm(request.POST or None, request.FILES or None)
 
     if form.is_valid():
         form.save()
         return redirect(allMovies)
 
-    return render(request, 'movieForm.html', {'form': form})
+    return render(request, 'movieForm.html', {'form': form,'isNewMovie': isNewMovie})
 
 @login_required
 def editMovie(request, id):
+    isNewMovie = False
     movie = get_object_or_404(Move, pk=id)
     form = MoveForm(request.POST or None, request.FILES or None, instance=movie)
 
@@ -27,7 +29,7 @@ def editMovie(request, id):
         form.save()
         return redirect(allMovies)
 
-    return render(request, 'movieForm.html', {'form': form})
+    return render(request, 'movieForm.html', {'form': form,'isNewMovie': isNewMovie})
 
 @login_required
 def removeMovie(request, id):
