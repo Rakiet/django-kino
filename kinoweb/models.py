@@ -1,5 +1,5 @@
 from django.db import models
-
+from operator import itemgetter
 # Create your models here.
 class ExtraInfoToMovie(models.Model):
 
@@ -32,9 +32,35 @@ class Move(models.Model):
         return "{} ({})".format(self.title, self.year)
 
 class RatingMovie(models.Model):
+    ratingStart = {
+        (1, '1: ☆'),
+        (2, '2: ☆☆'),
+        (3, '3: ☆☆☆'),
+        (4, '4: ☆☆☆☆'),
+        (5, '5: ☆☆☆☆☆'),
+        (6, '6: ☆☆☆☆☆☆'),
+        (7, '7: ☆☆☆☆☆☆☆'),
+        (8, '8: ☆☆☆☆☆☆☆☆'),
+        (9, '9: ☆☆☆☆☆☆☆☆☆'),
+        (10, '10: ☆☆☆☆☆☆☆☆☆☆'),
+    }
+
+
+
     textReview = models.TextField(default="", blank=True)
-    stars = models.PositiveSmallIntegerField(default=5, blank=True)
+    stars = models.PositiveSmallIntegerField(
+        default=10,
+        choices=sorted(ratingStart, key=itemgetter(0)),
+    )
     movie = models.ForeignKey(Move, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.titleWithStars()
+
+    def titleWithStars(self):
+        return "{} ({})".format(self.movie.title, self.stars)
+
+
 
 
 # class Comments(models.Model):
