@@ -1,12 +1,24 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Move
-from .forms import MoveForm
+from .forms import MoveForm, RatingForm
 from django.contrib.auth.decorators import login_required
 
 
 def allMovies(request):
     allMOviesFromDB = Move.objects.all()
     return render(request, 'filmy.html',{'movies': allMOviesFromDB})
+
+def singleMovie(request, id):
+    movie = get_object_or_404(Move, pk=id)
+    form = RatingForm(request.POST or None, request.FILES or None)
+
+    if form.is_valid():
+        model_instance = form.save(commit=False)
+        model_instance.movie_id = id
+        model_instance.save()
+        return redirect(allMovies)
+
+    return render(request, 'singleMovie.html', {'form': form,'movie': movie})
 
 @login_required
 def newMovie(request):
