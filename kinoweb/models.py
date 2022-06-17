@@ -31,6 +31,10 @@ class Move(models.Model):
     def titleWithYear(self):
         return "{} ({})".format(self.title, self.year)
 
+class RatingMovie(models.Model):
+    textReview = models.TextField(default="", blank=True)
+    stars = models.PositiveSmallIntegerField(default=5, blank=True)
+    movie = models.ForeignKey(Move, on_delete=models.CASCADE)
 
 
 # class Comments(models.Model):
