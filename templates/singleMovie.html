@@ -56,14 +56,17 @@
                 {% else %}
                     <h5 class="card-title">Komentarze mogą dodawać tylko zalogowani użytkownicy</h5>
                 {% endif %}
-                <br>
+                <hr>
+                <hr>
                 {% if coments|length == 0 %}
                     <h5 class="card-title">Pod tym filmem nie ma jeszcze komentarzy</h5>
                 {% else %}
                     <h5 class="card-title">Komentarze:</h5>
                     {% for coment in coments %}
                     <hr>
-                        <h5 class="card-title" style=" justify-content: center; text-align: left;">Użytkownik: {{ coment.userName }}</h5>
+                        <h5 class="card-title" style=" justify-content: center; text-align: left;">Użytkownik: {{ coment.userName }} </h5>
+                        <h5 class="card-title" style=" justify-content: center; text-align: left;">Ocena: {{ coment.stars }}</h5>
+                        <h6 class="card-title" style=" justify-content: center; text-align: left;">Komentarz: </h6>
                         <div class="card-text">
                             {{ coment.textReview }}
                         </div>
