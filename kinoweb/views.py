@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Move
+from .models import Move, RatingMovie
 from .forms import MoveForm, RatingForm
 from django.contrib.auth.decorators import login_required
 
@@ -10,6 +10,7 @@ def allMovies(request):
 
 def singleMovie(request, id):
     movie = get_object_or_404(Move, pk=id)
+    coments = RatingMovie.objects.all().filter(movie_id=id)
     form = RatingForm(request.POST or None, request.FILES or None)
 
     if form.is_valid():
@@ -18,7 +19,7 @@ def singleMovie(request, id):
         model_instance.save()
         return redirect(allMovies)
 
-    return render(request, 'singleMovie.html', {'form': form,'movie': movie})
+    return render(request, 'singleMovie.html', {'form': form,'movie': movie,'coments': coments})
 
 @login_required
 def newMovie(request):

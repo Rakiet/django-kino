@@ -5,21 +5,54 @@
 {% endblock %}
 
 {% block site %}
+    <div class="container">
+    <div class="row row-cols-1 row-cols-lg-2">
 
+        <div class="col">
+            <div class="card" style="border-radius: 20px;">
+                <div style="position: relative;">
 
-    <div class="card" style="width: 32rem;">
-        <div class="card-body">
-                <h5 class="card-title">Komentarz</h5>
-
-            <hr>
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form|bootstrap }}
-                <div class="row justify-content-between" style="padding: 1rem;">
-                    <a href="{% url 'allMovies' %}" class="btn btn-primary">Cofnij</a>
-                        <button type="submit" class="btn btn-success">Zapisz</button>
+                    <img src="/media/{{ movie.poster }}" class="card-img-top" style=" border-radius: 20px 20px 0px 0px;">
+                    <i class="fa-brands fa-1x fa-imdb" style="position: absolute; top: 100%; left: 50%; transform: translate(-50%, -100%); padding: 5px; color: gold; background-color: #008080; border-radius: 10px 10px 0px 0px;"><a style="" > {{ movie.imdb_rating }}</a></i>
                 </div>
-            </form>
+                <div class="card-body">
+                    <h5 class="card-title" style=" justify-content: center; text-align: center;">{{ movie }}</h5>
+                    <hr>
+                    <div class="card-text">
+                        {{ movie.description }}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Dodaj Komentarz</h5>
+                <hr>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form|bootstrap }}
+                    <button type="submit" class="btn btn-success">Dodaj</button>
+
+                </form>
+                <br>
+                <h5 class="card-title">Komentarze:</h5>
+                {% for coment in coments %}
+                <hr>
+                    <h5 class="card-title" style=" justify-content: center; text-align: left;">Użytkownik: {{ coment.userName }}</h5>
+                    <div class="card-text">
+                        {{ coment.textReview }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
         </div>
     </div>
+    </div>
+
+
+
 {% endblock %}

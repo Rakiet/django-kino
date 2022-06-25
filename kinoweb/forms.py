@@ -9,5 +9,10 @@ class MoveForm(ModelForm):
 class RatingForm(ModelForm):
     class Meta:
         model = RatingMovie
-        fields = ['textReview', 'stars']
+        labels = {
+            "textReview": "Recenzja",
+            "stars": "Ocena",
+            "userName": "Nazwa użytkownika"
+        }
+        fields = ['userName', 'textReview', 'stars']
 

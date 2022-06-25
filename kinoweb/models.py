@@ -46,7 +46,7 @@ class RatingMovie(models.Model):
     }
 
 
-
+    userName = models.CharField(max_length=64, default="", blank=False)
     textReview = models.TextField(default="", blank=True)
     stars = models.PositiveSmallIntegerField(
         default=10,
