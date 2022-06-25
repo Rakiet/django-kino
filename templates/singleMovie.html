@@ -5,6 +5,20 @@
 {% endblock %}
 
 {% block site %}
+    <div class="jumbotron">
+        {% if user.is_authenticated %}
+            <h1 class="display-4">Witaj {{ user.username }}</h1>
+
+            <a href="{% url 'logout' %}" class="btn btn-primary">Wyloguj się <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+        {% else %}
+            <h1 class="display-4">Witaj, nieznajomy</h1>
+            <a href="{% url 'login' %}" class="btn btn-primary">Zaloguj się <i class="fa-solid fa-arrow-right-to-bracket"></i></a>
+            <a href="{% url 'signup' %}" class="btn btn-primary">Zarejestruj się <i class="fa-solid fa-arrow-right-to-bracket"></i></a>
+        {% endif %}
+            <hr>
+            <a href="{% url 'allMovies' %}" class="btn btn-success">Strona główna</a>
+
+    </div>
     <div class="container">
     <div class="row row-cols-1 row-cols-lg-2">
 
@@ -30,23 +44,31 @@
         <div class="col">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Dodaj Komentarz</h5>
-                <hr>
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ form|bootstrap }}
-                    <button type="submit" class="btn btn-success">Dodaj</button>
+                {% if request.user.is_authenticated %}
+                    <h5 class="card-title">Dodaj Komentarz</h5>
+                    <hr>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form|bootstrap }}
+                        <button type="submit" class="btn btn-success">Dodaj</button>
 
-                </form>
+                    </form>
+                {% else %}
+                    <h5 class="card-title">Komentarze mogą dodawać tylko zalogowani użytkownicy</h5>
+                {% endif %}
                 <br>
-                <h5 class="card-title">Komentarze:</h5>
-                {% for coment in coments %}
-                <hr>
-                    <h5 class="card-title" style=" justify-content: center; text-align: left;">Użytkownik: {{ coment.userName }}</h5>
-                    <div class="card-text">
-                        {{ coment.textReview }}
-                    </div>
-                {% endfor %}
+                {% if coments|length == 0 %}
+                    <h5 class="card-title">Pod tym filmem nie ma jeszcze komentarzy</h5>
+                {% else %}
+                    <h5 class="card-title">Komentarze:</h5>
+                    {% for coment in coments %}
+                    <hr>
+                        <h5 class="card-title" style=" justify-content: center; text-align: left;">Użytkownik: {{ coment.userName }}</h5>
+                        <div class="card-text">
+                            {{ coment.textReview }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
         </div>
