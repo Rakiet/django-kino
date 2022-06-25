@@ -1,7 +1,9 @@
 {% extends 'main.html' %}
 {% load bootstrap %}
 {% block site %}
+<center>
     <div class="card" style="width: 26rem;">
+        <a href="{% url 'allMovies' %}" class="btn btn-success">Wróć do storny głównej</a>
         <div class="card-body">
             <h5 class="card-title">Zaloguj się</h5>
             <form method="post">
@@ -12,4 +14,5 @@
              </form>
         </div>
     </div>
+</center>
 {% endblock %}
