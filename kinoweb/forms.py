@@ -14,9 +14,8 @@ class RatingForm(ModelForm):
         labels = {
             "textReview": "Recenzja",
             "stars": "Ocena",
-            "userName": "Nazwa użytkownika"
         }
-        fields = ['userName', 'textReview', 'stars']
+        fields = ['textReview', 'stars']
 
 class SignUpForm(UserCreationForm):
     class Meta:

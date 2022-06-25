@@ -17,6 +17,7 @@ def singleMovie(request, id):
     if form.is_valid():
         model_instance = form.save(commit=False)
         model_instance.movie_id = id
+        model_instance.userName = request.user
         model_instance.save()
         return redirect(allMovies)
 
