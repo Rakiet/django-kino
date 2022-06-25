@@ -11,11 +11,16 @@
     {% else %}
         <h1 class="display-4">Witaj, nieznajomy</h1>
         <a href="{% url 'login' %}" class="btn btn-primary">Zaloguj się <i class="fa-solid fa-arrow-right-to-bracket"></i></a>
+        <a href="{% url 'signup' %}" class="btn btn-primary">Zarejestruj się <i class="fa-solid fa-arrow-right-to-bracket"></i></a>
+    {% endif %}
+    {% if user.is_staff %}
+        <hr>
+        <a href="{% url 'newMovie' %}" class="btn btn-success">Dodaj nowy film <i class="fa-solid fa-arrow-right-to-bracket"></i></a>
     {% endif %}
 </div>
 
 
-    <a href="{% url 'newMovie' %}">Nowy Film</a>
+
     {% if movies|length == 0 %}
         <h2>Brak Filmów</h2>
     {% else %}
@@ -37,12 +42,18 @@
                     <div class="cut-string">
                         {{ movie.description }}
                     </div>
-
                     <hr>
-                    <p>Opcje edycji dla administracji: </p>
-                    <a href="{% url 'editMovie' movie.id %}"><i class="fa-solid fa-2x fa-pen-to-square"></i></a>
-                    <a href="{% url 'removeMovie' movie.id %}"><i class="fa-solid fa-2x fa-trash-can"></i></a>
-                    <a href="{% url 'singleMovie' movie.id %}"><i class="fa-solid fa-2x fa-angles-right"></i></a>
+                    <center>
+                    {% if user.is_staff %}
+                        <p>Opcje edycji dla administracji: </p>
+                        <a href="{% url 'editMovie' movie.id %}"><i class="fa-solid fa-2x fa-pen-to-square"></i></a>
+                        <a href="{% url 'removeMovie' movie.id %}"><i class="fa-solid fa-2x fa-trash-can"></i></a>
+                        <a href="{% url 'singleMovie' movie.id %}"><i class="fa-solid fa-2x fa-angles-right"></i></a>
+                    {% else %}
+                        <p>Przejdź do filmu: </p>
+                        <a href="{% url 'singleMovie' movie.id %}"><i class="fa-solid fa-2x fa-angles-right"></i></a>
+                    {% endif %}
+                        </center>
                 </div>
             </div>
         </div>

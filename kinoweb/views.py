@@ -1,6 +1,6 @@
 from .models import Move, RatingMovie
 from .forms import MoveForm, RatingForm, SignUpForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -22,7 +22,7 @@ def singleMovie(request, id):
 
     return render(request, 'singleMovie.html', {'form': form,'movie': movie,'coments': coments})
 
-@login_required
+@staff_member_required
 def newMovie(request):
     isNewMovie = True
     form = MoveForm(request.POST or None, request.FILES or None)
@@ -33,7 +33,7 @@ def newMovie(request):
 
     return render(request, 'movieForm.html', {'form': form,'isNewMovie': isNewMovie})
 
-@login_required
+@staff_member_required
 def editMovie(request, id):
     isNewMovie = False
     movie = get_object_or_404(Move, pk=id)
@@ -45,7 +45,7 @@ def editMovie(request, id):
 
     return render(request, 'movieForm.html', {'form': form,'isNewMovie': isNewMovie})
 
-@login_required
+@staff_member_required
 def removeMovie(request, id):
     movie = get_object_or_404(Move, pk=id)
     if request.method == "POST":
@@ -63,7 +63,7 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('home')
+            return redirect(allMovies)
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
