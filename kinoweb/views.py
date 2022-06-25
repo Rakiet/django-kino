@@ -19,7 +19,7 @@ def singleMovie(request, id):
         model_instance.movie_id = id
         model_instance.userName = request.user
         model_instance.save()
-        return redirect(allMovies)
+        return redirect(singleMovie, id)
 
     return render(request, 'singleMovie.html', {'form': form,'movie': movie,'coments': coments})
 
